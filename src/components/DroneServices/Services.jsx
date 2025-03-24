@@ -18,7 +18,7 @@ function Services() {
 
   return (
     <>
-      <section className="services bg-black p-4 w-full" id="drone-services">
+      <section className="services bg-black p-4 w-screen" id="drone-services">
         <div className="flex flex-col justify-center items-center bg-black w-full">
           <div className="flex flex-col p-4 space-y-8">
             <div className="flex flex-col items-center mb-6" data-aos="zoom-in">
