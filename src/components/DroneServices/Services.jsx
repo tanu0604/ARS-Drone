@@ -32,17 +32,17 @@ function Services() {
           </div>         
 
           {/* Various drone services */}
-          <div className="w-full" data-aos="fade-up">
+          <div className="w-screen" data-aos="fade-up">
             <DroneServices />
           </div>
 
           {/* Explaining the working */}
-          <div className="w-full" data-aos="fade-up">
+          <div className="w-screen" data-aos="fade-up">
             <Working />
           </div>
 
           {/* Benefits of using ARS */}
-          <div className="w-full" data-aos="fade-up">
+          <div className="w-screen" data-aos="fade-up">
             <Benefits />
           </div>
         </div>
