@@ -1,139 +1,123 @@
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import AOS from "aos"; // Import AOS
-import { Github, Linkedin, Mail, ExternalLink, ArrowUp } from 'lucide-react'
+import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'; 
+import AOS from 'aos'; 
+import 'aos/dist/aos.css'; 
+
+const footerItems = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { 
+    name: "Products", 
+    subItems: [
+      { name: "Drones", href: "/drone" },
+      { name: "Popular Drones", href: "/popularDrone" }
+    ]
+  },
+  { 
+    name: "Services", 
+    subItems: [
+      {name:"Drone Services" , href:"/drone-services"},
+      { name: "Repair your Drone", href: "/repair" },
+      { name: "Sell your Drone", href: "/sell" },
+      { name: "Rent a Drone", href: "/rent" },
+    ]
+  },
+  { name: "Contact Us", href: "/contact" },
+];
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  const footerLinks = [
-    {
-      title: "Navigation",
-      links: [
-        { name: "Home", href: "/" },
-        { name: "About", href: "/about" },
-        { name: "Skills", href: "/skills" },
-        { name: "Projects", href: "/projects" },
-        { name: "Contact", href: "/contact" },
-      ],
-    },
-    {
-      title: "Social",
-      links: [
-        { name: "GitHub", href: "https://github.com/tanu0604" },
-        { name: "LinkedIn", href: "https://www.linkedin.com/in/tanushree-paul-b491a8265/" },
-        { name: "Email", href: "mailto:tanushreepaul2004@gmail.com" },
-      ],
-    },
-  ];
+  const location = useLocation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     AOS.init({
-      duration: 1000, // Animation duration
-      once: true, // Trigger animation once
-      offset: 200, // Trigger animation when 200px away from the element
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: true,
     });
-  }, []);
+  }, [location]);
 
   return (
-    <footer className="bg-black text-white relative">
-      {/* Scroll to top button */}
-      <div
-        className="absolute -top-6 left-1/2 -translate-x-1/2"
-        data-aos="fade-up" // AOS animation trigger for scroll
-        data-aos-delay="500"
-      >
-        <button
-          onClick={scrollToTop}
-          className="rounded-full bg-white text-black hover:bg-gray-200 hover:scale-110 transition-transform"
-          aria-label="Scroll to top"
-        >
-          <ArrowUp className="h-4 w-4" />
-        </button>
-      </div>
+    <footer className="bg-black py-8 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        {/* Footer Sections */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          {/* Main Navigation */}
+          <div data-aos="fade-right">
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-4">
+              {footerItems.map((item) => (
+                <li key={item.name}>
+                  {item.subItems ? (
+                    <div className="space-y-2">
+                      <span className="block font-medium text-gray-300 cursor-pointer">{item.name}</span>
+                      <ul className="space-y-1 pl-4">
+                        {item.subItems.map((subItem) => (
+                          <li key={subItem.name}>
+                            <Link to={subItem.href} className="text-gray-300 hover:text-pink-500">
+                              {subItem.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <Link to={item.href} className="text-gray-300 hover:text-pink-500">
+                      {item.name}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        {/* Main footer content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* Brand section */}
-          <div className="space-y-4" data-aos="fade-up">
-            <h2 className="text-2xl font-bold">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
-                Tanushree Paul
-              </span>
-            </h2>
-            <p className="text-gray-400 max-w-xs">
-              Frontend developer passionate about creating beautiful and functional web experiences.
-            </p>
+          {/* Social Media */}
+          <div data-aos="fade-up">
+            <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a
-                href="https://github.com/tanu0604"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                data-aos="fade-up"
-                data-aos-delay="300"
-              >
-                <Github className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
+                <Facebook size={20} />
               </a>
-              <a
-                href="https://www.linkedin.com/in/tanushree-paul-b491a8265/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                data-aos="fade-up"
-                data-aos-delay="500"
-              >
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
+                <Twitter size={20} />
               </a>
-              <a
-                href="mailto:tanushreepaul2004@gmail.com"
-                className="text-gray-400 hover:text-white transition-colors"
-                data-aos="fade-up"
-                data-aos-delay="700"
-              >
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
+                <Instagram size={20} />
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
+                <Linkedin size={20} />
               </a>
             </div>
           </div>
 
-          {/* Links sections */}
-          {footerLinks.map((section) => (
-            <div key={section.title} className="space-y-4" data-aos="fade-up">
-              <h3 className="text-lg font-semibold">{section.title}</h3>
-              <ul className="space-y-2">
-                {section.links.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      className="text-gray-400 hover:text-white transition-colors inline-flex items-center group"
-                      data-aos="fade-up"
-                      data-aos-delay="900"
-                    >
-                      {link.name}
-                      <ExternalLink className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Contact Information */}
+          <div data-aos="fade-left">
+            <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li>1234 Street, City, Country</li>
+              <li>Email: support@example.com</li>
+              <li>Phone: +1 234 567 890</li>
+            </ul>
+          </div>
+
+          {/* Additional Links */}
+          <div data-aos="fade-left">
+            <h3 className="text-lg font-semibold mb-4">More Info</h3>
+            <ul className="space-y-4">
+              <li>
+                <Link to="/terms" className="text-gray-300 hover:text-pink-500">Terms & Conditions</Link>
+              </li>
+              <li>
+                <Link to="/privacy" className="text-gray-300 hover:text-pink-500">Privacy Policy</Link>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Bottom bar */}
-        <div
-          className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0"
-          data-aos="fade-up"
-          data-aos-delay="1200"
-        >
-          <div className="flex items-center space-x-2 text-gray-400 text-sm">
-            <span>© {new Date().getFullYear()} Tanushree Paul.</span>
-            <span className="hidden sm:inline">All rights reserved.</span>
-          </div>
+        {/* Copyright */}
+        <div className="text-center text-gray-400 mt-8 text-sm">
+          <p>&copy; {new Date().getFullYear()} ARS. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -1,109 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import image from "../../assets/About.png";
-// About Component
-export default function About() {
-  // Animation variants for text
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
+import Spline from "@splinetool/react-spline";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-  // Animation variants for image
-  const imageVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
+function About() {
+  const [splineLoaded, setSplineLoaded] = useState(false);
 
-  // Animation variants for paragraph with characters animation
-  const paragraphVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.015,
-        duration: 0.5,
-      },
-    },
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => setSplineLoaded(true), 2000); // Fallback in case Spline doesn't load
+    return () => clearTimeout(timer);
+  }, []);
 
-  const text = `Hi, I'm Tanushree Paul, a passionate learner and software developer with a focus on frontend technologies. With 3 years of coding experience, I have honed my skills in React and Tailwind CSS and continue to explore new technologies to improve my craft. I am driven by a problem-solving mindset, consistently challenging myself with coding problems on platforms like LeetCode. My approach is to master one technology before moving to the next, and I enjoy building projects that provide real-world solutions. When I'm not coding, you can find me diving into data structures and algorithms or learning something new to further my understanding of software development. My goal is to keep growing as a developer, build impactful projects, and contribute to the tech community.`;
+  useEffect(() => {
+    AOS.init({
+      offset: 100,
+      duration: 800,
+      easing: "ease-in-out",
+      delay: 100,
+    });
+    AOS.refresh();
+  }, []);
 
   return (
-    <section className="min-h-screen py-12 bg-black" id="about">
-      <motion.h1
-        className="text-white flex justify-center mt-2 p-3 text-4xl font-raleway"
-        initial="hidden"
-        animate="visible"
-        variants={textVariants}
+    <section
+      className="bg-black min-h-screen w-full p-6 overflow-hidden "
+      id="about"
+    >
+      {/* Header */}
+      <div
+        className="text-white text-center py-4 text-3xl lg:text-4xl font-bold mt-10"
+        data-aos="fade-down"
       >
-        About Me
-      </motion.h1>
+        About Us
+      </div>
 
-      <div className="flex justify-center items-center flex-col space-y-4 lg:flex-row lg:space-x-2 lg:space-y-0 max-w-7xl mx-auto px-4">
-        {/* Image */}
+      {/* Content */}
+      <div className="flex flex-col lg:flex-row-reverse lg:items-center px-3 lg:h-[calc(100%-4rem)]">
+        {/* Spline Model */}
         <motion.div
-          className="flex items-center justify-center w-full lg:w-1/2"
-          initial="hidden"
-          animate="visible"
-          variants={imageVariants}
+          className="w-full lg:w-1/2 flex-grow"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: splineLoaded ? 1 : 0,
+            scale: splineLoaded ? 1 : 0.8,
+          }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          data-aos="fade-left"
         >
-          <div className="relative w-full md:w-1/2 aspect-square">
-            <img
-              src={image}
-              alt="Tanushree's Illustration"
-              className="object-contain w-full h-full"
-            />
+          <div className="w-full aspect-[16/9] lg:aspect-[4/3] max-h-[500px] mx-auto">
+            <Spline scene="https://prod.spline.design/WrM7Mwk8-JCXI0eK/scene.splinecode" />
           </div>
         </motion.div>
 
-        {/* About me text */}
-        <motion.div
-          className="para text-white  w-full lg:w-1/2 p-3"
-          initial="hidden"
-          animate="visible"
-          variants={paragraphVariants}
+        {/* About Text */}
+        <div
+          className="text-white lg:w-1/2 flex items-center py-4 lg:py-0 lg:px-6"
+          data-aos="fade-right"
         >
-          <motion.p
-            className="leading-relaxed"
-            initial="hidden"
-            animate="visible"
-            variants={paragraphVariants}
-          >
-            {text.split("").map((char, index) => (
-              <motion.span
-                key={index}
-                variants={{
-                  hidden: { opacity: 0, y: 50 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      duration: 0.5,
-                    },
-                  },
-                }}
-              >
-                {char}
-              </motion.span>
-            ))}
-          </motion.p>
-        </motion.div>
+          <p className="text-lg lg:text-xl leading-relaxed lg:leading-loose text-center lg:text-left">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
+            deserunt natus numquam aliquid suscipit ad expedita, quibusdam
+            repellendus excepturi facere esse provident, omnis possimus nemo
+            quasi libero, qui quisquam quo explicabo. Fuga debitis modi corrupti
+            saepe ratione, consectetur quis asperiores soluta magni
+            exercitationem recusandae hic autem odio esse rem.
+          </p>
+        </div>
       </div>
     </section>
   );
 }
+
+export default About;
