@@ -114,8 +114,6 @@ npm run dev
 ## 📞 Contact  
 
 For inquiries, visit the official website: **[arsdrones.netlify.app](https://arsdrones.netlify.app/)**  
-Or reach out via email: **your-email@example.com**  
-
 🚀 **ARS Drones – Redefining Aerial Innovation!**  
 
 ---
