@@ -15,7 +15,7 @@ import DroneAccessories from "./components/Drones/DroneAccessories";
 import ContactForm from "./components/ContactForm/ContactForm";
 import Services from "./components/DroneServices/Services";
 import Introduction from "./components/DroneServices/Introduction";
-
+import "./App.css";
 function App() {
   useEffect(() => {
     AOS.init({
